@@ -9,6 +9,7 @@ namespace Restaurants
     private int _id;
     private string _restaurantName;
     private int _cuisineId;
+    private static int _sortValue = 0;
 
     public Restaurant(string name, int cuisineId, int id = 0)
     {
@@ -30,6 +31,17 @@ namespace Restaurants
     public int GetCuisineId()
     {
       return _cuisineId;
+    }
+
+    public int GetSortValue()
+    {
+      return _sortValue;
+    }
+
+// 0 is all
+    public void SetSortValue(int category)
+    {
+      _sortValue = category;
     }
 
     public override bool Equals(System.Object otherRestaurant)
@@ -63,7 +75,7 @@ namespace Restaurants
       {
         int restaurantId = rdr.GetInt32(0);
         string restaurantName = rdr.GetString(1);
-        int cuisineId = rdr.GetInt32(0);
+        int cuisineId = rdr.GetInt32(3);
         Restaurant newRestaurant = new Restaurant(restaurantName, cuisineId, restaurantId);
         allRestaurants.Add(newRestaurant);
       }
@@ -164,7 +176,7 @@ namespace Restaurants
       {
         foundRestaurantId = rdr.GetInt32(0);
         foundRestaurantName = rdr.GetString(1);
-        foundCuisineId = rdr.GetInt32(2);
+        foundCuisineId = rdr.GetInt32(3);
       }
       Restaurant foundRestaurant = new Restaurant(foundRestaurantName, foundCuisineId, foundRestaurantId);
 

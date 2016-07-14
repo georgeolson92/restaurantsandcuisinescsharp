@@ -1,10 +1,11 @@
+@Model["restaurants"][0].GetSortValue()
 
-
-<form>
+<form action="/cuisine/sortby" method="post">
   <select name="cuisineSort">
+      <option name="default" value=0>All</option>
     @foreach (var cuisine in Model["cuisine"])
     {
-      <option name="@cuisine.GetName()">@cuisine.GetName()</option>
+      <option name="@cuisine.GetName()" value=@cuisine.GetId()>@cuisine.GetName()</option>
     }
   </select>
   <button type="submit">Sort by cuisine</button>
@@ -12,7 +13,10 @@
 <ul>
   @foreach (var restaurant in Model["restaurants"])
   {
-    <li>@restaurant.GetName()</li>
+    @if ( restaurant.GetCuisineId() == restaurant.GetSortValue() || restaurant.GetSortValue() == 0)
+    {
+    <li> @restaurant.GetName() </li>
+    }
   }
 </ul>
 
@@ -21,7 +25,7 @@
   <select name="cuisineSelect">
     @foreach (var cuisine in Model["cuisine"])
     {
-      <option name="@cuisine.GetName()">@cuisine.GetName()</option>
+      <option name="@cuisine.GetName()" value=@cuisine.GetId()>@cuisine.GetName() @cuisine.GetId()</option>
     }
   </select>
   <button type="submit">Add Restaurant</button>
