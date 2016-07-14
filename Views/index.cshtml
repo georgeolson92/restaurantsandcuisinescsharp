@@ -1,4 +1,4 @@
-@Model["restaurants"][0].GetSortValue()
+
 
 <form action="/cuisine/sortby" method="post">
   <select name="cuisineSort">
@@ -19,7 +19,7 @@
     }
   }
 </ul>
-
+<h6><em><a href="/restaurant/delete/all">remove all restaurants</a></em></h6>
 <form action="/restaurant/new" method="post">
   <input type="text" name="restaurantName" placeholder="new restaurant name">
   <select name="cuisineSelect">

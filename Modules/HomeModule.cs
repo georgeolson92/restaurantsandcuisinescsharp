@@ -27,6 +27,15 @@ namespace Restaurants
         model.Add("restaurants", allRestaurants);
         return View["index.cshtml", model];
       };
+      Get["/restaurant/delete/all"] = _ => {
+        Restaurant.DeleteAll();
+        List<Cuisine> allCuisine = Cuisine.GetAll();
+        List<Restaurant> allRestaurants = Restaurant.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object> {};
+        model.Add("cuisine", allCuisine);
+        model.Add("restaurants", allRestaurants);
+        return View["index.cshtml", model];
+      };
       Post["/cuisine/sortby"] = _ => {
         List<Cuisine> allCuisine = Cuisine.GetAll();
         List<Restaurant> allRestaurants = Restaurant.GetAll();
