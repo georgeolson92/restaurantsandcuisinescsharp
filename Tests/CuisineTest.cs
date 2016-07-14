@@ -6,9 +6,9 @@ using System.Data.SqlClient;
 
 namespace Restaurants
 {
-  public class RestaurantsTest : IDisposable
+  public class CuisineTest : IDisposable
   {
-    public RestaurantsTest()
+    public CuisineTest()
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=restaurants_tests;Integrated Security=SSPI;";
     }

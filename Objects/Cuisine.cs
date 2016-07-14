@@ -137,41 +137,6 @@ namespace Restaurants
       }
     }
 
-    // public void UpdateId(int newId)
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   SqlDataReader rdr;
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("UPDATE cuisine SET id = @NewId OUTPUT INSERTED.name WHERE name = @CuisineName;", conn);
-    //
-    //   SqlParameter newIdParameter = new SqlParameter();
-    //   newIdParameter.ParameterName = "@NewId";
-    //   newIdParameter.Value = newId;
-    //   cmd.Parameters.Add(newIdParameter);
-    //
-    //
-    //   SqlParameter cuisineNameParameter = new SqlParameter();
-    //   cuisineNameParameter.ParameterName = "@CuisineName";
-    //   cuisineNameParameter.Value = this.GetName();
-    //   cmd.Parameters.Add(cuisineNameParameter);
-    //   rdr = cmd.ExecuteReader();
-    //
-    //   while(rdr.Read())
-    //   {
-    //     this._id = rdr.GetInt32(0);
-    //   }
-    //
-    //   if (rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //
-    //   if (conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    // }
 
     public static void DeleteAll()
     {
