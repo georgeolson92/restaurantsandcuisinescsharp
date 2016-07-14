@@ -53,15 +53,74 @@ namespace Restaurants
     }
 
     [Fact]
-    public void Test_CreateNewCuisine()
+    public void Test_FindFindsTaskInDatabase()
     {
-      //Arrange, Act
-      Cuisine testCuisine = new Cuisine("American diner breakfast");
-      string expectedResult = "American diner breakfast";
-      string result = testCuisine.GetName();
+      //Arrange
+      Cuisine testCuisine = new Cuisine("doughnut related tourist trap");
+      testCuisine.Save();
+
+      //Act
+      Cuisine foundCuisine = Cuisine.Find(testCuisine.GetId());
+
       //Assert
-      Assert.Equal(expectedResult, result);
+      Assert.Equal(testCuisine, foundCuisine);
     }
 
+    [Fact]
+    public void Test_Update_UpdatesCuisineInDatabase()
+    {
+      //Arrange
+      string name = "doughnut related tourist trap";
+      Cuisine testCuisine = new Cuisine(name);
+      testCuisine.Save();
+      string newName = "ice cream related tourist trap";
+
+      //Act
+      testCuisine.Update(newName);
+
+      string result = testCuisine.GetName();
+
+      //Assert
+      Assert.Equal(newName, result);
+    }
+
+    [Fact]
+    public void Test_Delete_DeletesCuisineFromDatabase()
+    {
+      //Arrange
+      string name1 = "Chinese";
+      Cuisine testCuisine1 = new Cuisine(name1);
+      testCuisine1.Save();
+
+      string name2 = "ice cream";
+      Cuisine testCuisine2 = new Cuisine(name2);
+      testCuisine2.Save();
+
+      //Act
+      testCuisine1.Delete();
+      List<Cuisine> resultCuisine = Cuisine.GetAll();
+      List<Cuisine> testCuisineList = new List<Cuisine> {testCuisine2};
+
+      //Assert
+      Assert.Equal(testCuisineList, resultCuisine);
+    }
+
+    // [Fact]
+    // public void Test_UpdateId_updateIdToNewNumber()
+    // {
+    //   //Arrange
+    //   string name = "doughtnut";
+    //   Cuisine testCuisine = new Cuisine(name);
+    //   testCuisine.Save();
+    //   int newId = 3;
+    //
+    //   //Act
+    //   testCuisine.UpdateId(newId);
+    //
+    //   int result = testCuisine.GetId();
+    //
+    //   //Assert
+    //   Assert.Equal(newId, result);
+    // }
   }
 }

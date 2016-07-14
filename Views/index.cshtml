@@ -1,1 +1,17 @@
-test
+
+
+<form>
+  <select>
+    @foreach (var cuisine in Model)
+    {
+      <option name="@cuisine.GetName()">@cuisine.GetName()</option>
+    }
+  </select>
+</form>
+
+<form action="/cuisine/new" method="post">
+  <input type="text" name="cuisineName" id="cuisineName">
+  <button type="submit">Add Cuisine Category</button>
+</form>
+<a href="/cuisine/delete">Remove a cuisine</a>
+<a href="/cuisine/edit">Edit/rename a cuisine</a>

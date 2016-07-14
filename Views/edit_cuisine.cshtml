@@ -1,0 +1,14 @@
+<h2>Edit cuisine category name?</h2>
+<form action="/cuisine/edit/" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <select name="cuisineName">
+    @foreach (var cuisine in Model)
+    {
+      <option value=@cuisine.GetId()>@cuisine.GetName()</option>
+    }
+  </select>
+  <label for="newName">New name</label>
+  <input type="text" name="newName" placeholder="Choose a new name">
+  <button type="submit">Edit</button>
+</form>
+<a href="/">Go back</a>

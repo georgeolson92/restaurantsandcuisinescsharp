@@ -1,0 +1,12 @@
+<h2>Remove a cuisine category.</h2>
+<form action="/cuisine/delete/" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <select name="cuisineName">
+    @foreach (var cuisine in Model)
+    {
+      <option value=@cuisine.GetId()>@cuisine.GetName()</option>
+    }
+  </select>
+  <button type="submit">Remove this category</button>
+</form>
+<a href="/cuisine/delete/all">Remove all</a>
