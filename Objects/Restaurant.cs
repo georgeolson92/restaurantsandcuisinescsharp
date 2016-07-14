@@ -8,11 +8,13 @@ namespace Restaurants
   {
     private int _id;
     private string _restaurantName;
+    private int _cuisineId;
 
-    public Restaurant(string name, int id = 0)
+    public Restaurant(string name, int cuisineId, int id = 0)
     {
       _id = id;
       _restaurantName = name;
+      _cuisineId = cuisineId;
     }
 
     public string GetName()
@@ -23,6 +25,11 @@ namespace Restaurants
     public int GetId()
     {
       return _id;
+    }
+
+    public int GetCuisineId()
+    {
+      return _cuisineId;
     }
 
     public override bool Equals(System.Object otherRestaurant)
@@ -36,7 +43,8 @@ namespace Restaurants
           Restaurant newRestaurant = (Restaurant) otherRestaurant;
           bool idEquality = (this.GetId() == newRestaurant.GetId());
           bool nameEquality = (this.GetName() == newRestaurant.GetName());
-          return (idEquality && nameEquality);
+          bool cuisineIdEquality = (this.GetCuisineId() == newRestaurant.GetCuisineId());
+          return (idEquality && nameEquality && cuisineIdEquality);
         }
     }
 
@@ -55,7 +63,8 @@ namespace Restaurants
       {
         int restaurantId = rdr.GetInt32(0);
         string restaurantName = rdr.GetString(1);
-        Restaurant newRestaurant = new Restaurant(restaurantName, restaurantId);
+        int cuisineId = rdr.GetInt32(0);
+        Restaurant newRestaurant = new Restaurant(restaurantName, cuisineId, restaurantId);
         allRestaurants.Add(newRestaurant);
       }
 
@@ -105,13 +114,18 @@ namespace Restaurants
       SqlDataReader rdr;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO restaurant (name) OUTPUT INSERTED.id VALUES (@RestaurantName);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO restaurant (name, cuisine_id) OUTPUT INSERTED.id VALUES (@RestaurantName, @CuisineId);", conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@RestaurantName";
       nameParameter.Value = this.GetName();
 
+      SqlParameter cuisineIdParameter = new SqlParameter();
+      cuisineIdParameter.ParameterName = "@CuisineId";
+      cuisineIdParameter.Value = this.GetCuisineId();
+
       cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(cuisineIdParameter);
 
       rdr = cmd.ExecuteReader();
 
@@ -144,13 +158,15 @@ namespace Restaurants
 
       int foundRestaurantId = 0;
       string foundRestaurantName = null;
+      int foundCuisineId = 0;
 
       while(rdr.Read())
       {
         foundRestaurantId = rdr.GetInt32(0);
         foundRestaurantName = rdr.GetString(1);
+        foundCuisineId = rdr.GetInt32(2);
       }
-      Restaurant foundRestaurant = new Restaurant(foundRestaurantName, foundRestaurantId);
+      Restaurant foundRestaurant = new Restaurant(foundRestaurantName, foundCuisineId, foundRestaurantId);
 
       if (rdr != null)
       {

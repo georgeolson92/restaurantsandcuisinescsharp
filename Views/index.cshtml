@@ -1,12 +1,30 @@
 
 
 <form>
-  <select>
-    @foreach (var cuisine in Model)
+  <select name="cuisineSort">
+    @foreach (var cuisine in Model["cuisine"])
     {
       <option name="@cuisine.GetName()">@cuisine.GetName()</option>
     }
   </select>
+  <button type="submit">Sort by cuisine</button>
+</form>
+<ul>
+  @foreach (var restaurant in Model["restaurants"])
+  {
+    <li>@restaurant.GetName()</li>
+  }
+</ul>
+
+<form action="/restaurant/new" method="post">
+  <input type="text" name="restaurantName" placeholder="new restaurant name">
+  <select name="cuisineSelect">
+    @foreach (var cuisine in Model["cuisine"])
+    {
+      <option name="@cuisine.GetName()">@cuisine.GetName()</option>
+    }
+  </select>
+  <button type="submit">Add Restaurant</button>
 </form>
 
 <form action="/cuisine/new" method="post">

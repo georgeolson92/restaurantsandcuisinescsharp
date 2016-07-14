@@ -11,7 +11,21 @@ namespace Restaurants
     {
       Get["/"] = _ => {
         List<Cuisine> allCuisine = Cuisine.GetAll();
-        return View["index.cshtml", allCuisine];
+        List<Restaurant> allRestaurants = Restaurant.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object> {};
+        model.Add("cuisine", allCuisine);
+        model.Add("restaurants", allRestaurants);
+        return View["index.cshtml", model];
+      };
+      Post["/restaurant/new"] = _ => {
+        Restaurant newRestaurant = new Restaurant(Request.Form["restaurantName"], Request.Form["cuisineSelect"]);
+        newRestaurant.Save();
+        List<Cuisine> allCuisine = Cuisine.GetAll();
+        List<Restaurant> allRestaurants = Restaurant.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object> {};
+        model.Add("cuisine", allCuisine);
+        model.Add("restaurants", allRestaurants);
+        return View["index.cshtml", model];
       };
       Post["/cuisine/new"] = _ => {
         Cuisine newCuisine = new Cuisine(Request.Form["cuisineName"]);
